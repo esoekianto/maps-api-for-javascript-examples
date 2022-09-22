@@ -3,7 +3,18 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-    <title>Map with Driving Route from A to B</title>
+    <meta name="og:image" content="https://app.developer.here.com/ev-routing-sample/part1/cover.jpg">
+    <meta name="image" property="og:image" content="https://app.developer.here.com/ev-routing-sample/part1/cover.jpg">
+    <meta name="og:url" content="https://app.developer.here.com/ev-routing-sample/part1/">
+    <meta name="og:type" content="website">
+    <meta name="og:title" content="Map with Driving EV Route from LA to Grand Canyon National Park">
+    <meta name="og:description" content="This map is a simple sample app that shows EV Route from Los Angeles to Grand Canyon National Park">
+    
+    <meta name="title" content="Map with Driving EV Route from LA to Grand Canyon National Park">
+    <meta name="description" content="This map is a simple sample app that shows EV Route from Los Angeles to Grand Canyon National Park">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Map with Driving EV Route from LA to Grand Canyon National Park</title>
     <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
     <link rel="stylesheet" type="text/css" href="demo.css" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -14,6 +25,41 @@
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
     <style type="text/css">
+      html, body, #map {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    #directionPanel {
+    	position: fixed;
+    	left: 15px;
+      top:15px;
+      margin-top: 0px; 
+      padding: 0px 15px; 
+      min-height: 365px;
+      box-sizing: border-box;
+      display: block;
+      margin-bottom: 10px;
+      max-height: 90%;
+      overflow-y: auto;
+      padding-bottom: 0px;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 0px;
+      max-width: 35%;
+      background-color: #fff;
+      z-index: 99;
+    }
+    @media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  #directionPanel {
+    top:0px;
+    left:0px;
+    max-width: 100%;
+    max-height: 15%;
+  }
+}
       .directions li span.arrow {
         display:inline-block;
         min-width:28px;
@@ -35,25 +81,25 @@
       .directions li span.arrive  {
         background-position:-1288px;
       }
+      .directions li span.charging {
+        background-image: url("./img/ev.svg" );
+      }
       </style>
   </head>
   <body id="markers-on-the-map">
     
-    <div class="page-header">
-        <h1>Map with Driving Route from A to B</h1>
-        <p>Request a driving route from A to B and display it on the map</p>
+    <!-- <div class="page-header">
+        <h1>Map with Driving EV Route from A to B</h1>
     </div>
-    <p>This example calculates the fastest car route from the <b>Brandenburg Gate</b> 
-      in the centre of Berlin <i>(52.51605°N, 13.37787°E)</i> to <b>Friedrichstraße Railway Station</b> 
-      <i>(52.52058°N, 13.38615°E)</i>, and displays it on the map.</p>
-    <div id="map"></div>
-    <div id="panel"></div>
-    <h3>Code</h3>
-    <p>Access to the routing service is obtained from the <code>H.service.Platform</code> by calling 
-      <code>getRoutingService()</code>. The <code>calculateRoute()</code> method is used to calculate the fastest 
-      car route by passing in the relevant parameters as defined in 
-      <a href="https://developer.here.com/documentation/routing-api/dev_guide/topics/use-cases/calculate-route.html" target="_blank">Routing API</a>. 
-      The styling and display of the response is under the control of the developer.</p>
+    <p>This example calculates the EV car route from the <b>Los Angeles</b> 
+       <i>(34.059761,-118.276802)</i> to <b>Grand Canyon National Park</b> 
+      <i>(36.197203,-112.05298)</i>, and displays it on the map.</p> 
+    
+    -->
+    <div id="map"><div id="directionPanel"></div></div>
+    
+    
+    
     <script type="text/javascript" src='demo.js'></script>
   </body>
 </html>
