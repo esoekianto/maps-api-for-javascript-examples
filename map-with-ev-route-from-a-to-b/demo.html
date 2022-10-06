@@ -3,15 +3,15 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-    <meta name="og:image" content="https://app.developer.here.com/ev-routing-sample/part1/cover.jpg">
-    <meta name="image" property="og:image" content="https://app.developer.here.com/ev-routing-sample/part1/cover.jpg">
-    <meta name="og:url" content="https://app.developer.here.com/ev-routing-sample/part1/">
+    <meta name="og:image" content="https://app.developer.here.com/ev-routing-sample/part2/cover.jpg">
+    <meta name="image" property="og:image" content="https://app.developer.here.com/ev-routing-sample/part2/cover.jpg">
+    <meta name="og:url" content="https://app.developer.here.com/ev-routing-sample/part2/">
     <meta name="og:type" content="website">
-    <meta name="og:title" content="Map with Driving EV Route from LA to Grand Canyon National Park">
-    <meta name="og:description" content="This map is a simple sample app that shows EV Route from Los Angeles to Grand Canyon National Park">
+    <meta name="og:title" content="Map with Driving EV Route from LA to various National Parks">
+    <meta name="og:description" content="This map is a simple sample app that shows EV Route from Los Angeles to various National Parks and showing the ability to set initial EV charge">
     
-    <meta name="title" content="Map with Driving EV Route from LA to Grand Canyon National Park">
-    <meta name="description" content="This map is a simple sample app that shows EV Route from Los Angeles to Grand Canyon National Park">
+    <meta name="title" content="Map with Driving EV Route from LA to various National Park">
+    <meta name="description" content="This map is a simple sample app that shows EV Route from Los Angeles to various National Parks and showing the ability to set initial EV charge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Map with Driving EV Route from LA to Grand Canyon National Park</title>
@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../template.css" />
     <script type="text/javascript" src='../test-credentials.js'></script>    
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-harp.js"></script>
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
@@ -31,34 +32,94 @@
       height: 100%;
       width: 100%;
     }
-    #directionPanel {
+    h3{
+      margin-top: 0.5rem;
+      color: #00AFAA;
+    }
+    #directionTitle {
     	position: fixed;
-    	left: 15px;
-      top:15px;
+    	left: 10px;
+      top:10px;
       margin-top: 0px; 
       padding: 0px 15px; 
-      min-height: 365px;
+      min-height: 100px;
       box-sizing: border-box;
       display: block;
       margin-bottom: 10px;
-      max-height: 90%;
+      max-height: 200px;
       overflow-y: auto;
       padding-bottom: 0px;
       padding-left: 15px;
       padding-right: 15px;
       padding-top: 0px;
-      max-width: 35%;
+      max-width: 30%;
       background-color: #fff;
       z-index: 99;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
     }
+    #directionPanel {
+    	position: fixed;
+    	left: 10px;
+      top: 220px;
+      margin-top: 0px; 
+      padding: 0px 15px; 
+      min-height: 0px;
+      box-sizing: border-box;
+      display: block;
+      margin-bottom: 10px;
+      max-height: 70%;
+      overflow-y: auto;
+      padding-bottom: 0px;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 0px;
+      max-width: 30%;
+      background-color: #fff;
+      z-index: 99;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    }
+    #destinationDropDown {
+    width: 100%;
+    outline-offset: 2px;
+    outline: transparent solid 2px;
+    padding-bottom: 1px;
+    font-weight: 600;
+    background-color: #F7FAFC;
+    padding-inline: 1rem 2rem;
+    height: 2rem;
+    color: #00AFAA;
+   }
+   #evInitialCharge {
+    max-width: 50%;
+    outline-offset: 2px;
+    outline: transparent solid 2px;
+    padding-bottom: 1px;
+    font-weight: 600;
+    background-color: #F7FAFC;
+    padding-inline: 1rem 2rem;
+    height: 2rem;
+    color: #00AFAA;
+   }
+
     @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  #directionPanel {
-    top:0px;
-    left:0px;
+  #directionTitle {
+    top:10px;
+    left:10px;
+    right: 10px;
     max-width: 100%;
-    max-height: 15%;
+    max-height: 120px;
   }
+  #directionPanel {
+    top:72.5%;
+    left:10px;
+    right: 10px;
+    max-width: 100%;
+    max-height: 25%;
+  }
+  
 }
       .directions li span.arrow {
         display:inline-block;
@@ -82,24 +143,18 @@
         background-position:-1288px;
       }
       .directions li span.charging {
+        min-width:16px;
+        min-height:16px;
+        top: 0px;
         background-image: url("./img/ev.svg" );
       }
       </style>
   </head>
   <body id="markers-on-the-map">
-    
-    <!-- <div class="page-header">
-        <h1>Map with Driving EV Route from A to B</h1>
+    <div id="map">
+      <div id="directionTitle"></div>
+      <div id="directionPanel"></div>
     </div>
-    <p>This example calculates the EV car route from the <b>Los Angeles</b> 
-       <i>(34.059761,-118.276802)</i> to <b>Grand Canyon National Park</b> 
-      <i>(36.197203,-112.05298)</i>, and displays it on the map.</p> 
-    
-    -->
-    <div id="map"><div id="directionPanel"></div></div>
-    
-    
-    
     <script type="text/javascript" src='demo.js'></script>
   </body>
 </html>
